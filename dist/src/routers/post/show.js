@@ -17,12 +17,17 @@ const express_1 = require("express");
 const post_1 = __importDefault(require("../../models/post"));
 const router = (0, express_1.Router)();
 exports.showPostRouter = router;
+router.get('/api/post/show', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    // if(!id){
+    const allPost = yield post_1.default.find();
+    res.status(200).send(allPost);
+    // } 
+    // const post = await Post.findOne({ _id: id }).populate('comments')
+    // res.status(200).send(post)
+}));
 router.get('/api/post/show/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    if (!id) {
-        const allPost = yield post_1.default.find();
-        res.status(200).send(allPost);
-    }
     const post = yield post_1.default.findOne({ _id: id }).populate('comments');
     res.status(200).send(post);
 }));
